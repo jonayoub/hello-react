@@ -25,17 +25,16 @@ function Library() {
         </tr>
       </thead>
       <tbody>
-      {myBooks.map(b => (
-        <tr>
+        {myBooks.map(b => (
+        <tr key="{b.ISBN}">
           <td>{b.title}</td>
           <td>{b.author}</td>
           <td>{b.ISBN}</td>
         </tr>
-      ))
-    }
-    </tbody>
+        ))}
+      </tbody>
     </table>
-  )
+    );
 }
 
 const book = {
