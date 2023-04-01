@@ -1,6 +1,42 @@
+import {supabase} from './supabaseClient';
 import logo from './logo.svg';
 import {useState} from 'react';
 import './App.css';
+import './supabaseTable.css';
+
+
+function Library() {
+ 
+  const [myBooks, setMyBooks] = useState([]);
+  async function getBooks() {
+    let { data: books, error } = await supabase
+      .from('books')
+      .select('*')
+    setMyBooks(books);
+  }
+  getBooks();
+  return (
+    <table className="bookTable">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>ISBN</th>
+        </tr>
+      </thead>
+      <tbody>
+      {myBooks.map(b => (
+        <tr>
+          <td>{b.title}</td>
+          <td>{b.author}</td>
+          <td>{b.ISBN}</td>
+        </tr>
+      ))
+    }
+    </tbody>
+    </table>
+  )
+}
 
 const book = {
   title: 'A Farewell to Arms',
@@ -95,6 +131,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <Library/>
         <ZineRack/>
         <ReactLogo/>
         <Bookshelf/>
